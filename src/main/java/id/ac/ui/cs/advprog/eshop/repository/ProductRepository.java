@@ -35,5 +35,10 @@ public class ProductRepository {
 
         throw new IllegalArgumentException("The product with" + productId+" ID was not found");
     }
+
+    public void deleteProduct(String productId){
+        Product delProduct=findProduct(productId);
+        productData.remove(delProduct);
+    }
 }
 

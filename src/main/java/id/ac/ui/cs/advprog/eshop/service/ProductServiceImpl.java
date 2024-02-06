@@ -40,4 +40,9 @@ public class ProductServiceImpl implements ProductService{
         tempProduct.setProductName(productName);
         tempProduct.setProductQuantity(productQuantity);
     }
+
+    @Override
+    public void deleteProduct(String productId){
+        productRepository.deleteProduct(productId);
+    }
 }
