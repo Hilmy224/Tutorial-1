@@ -10,33 +10,38 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/product")
+@RequestMapping("/")
 public class ProductController {
 
     @Autowired
     private ProductService service;
 
-    @GetMapping("/create")
+    @GetMapping
+    public String index(){
+        return "homepage";
+    }
+
+    @GetMapping("/product/create")
     public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product" , product);
         return "createProduct";
     }
 
-    @PostMapping("/create")
+    @PostMapping("/product/create")
     public String createProductPost(@ModelAttribute Product product, Model model) {
         service.create(product);
         return "redirect:list";
     }
 
-    @GetMapping("/list")
+    @GetMapping("/product/list")
     public String productListPage(Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
         return "productList";
     }
 
-    @GetMapping("/edit/{id}")
+    @GetMapping("/product/edit/{id}")
     public String editProductPage(@PathVariable("id") String id, Model model){
         Product targetProduct=service.findProduct(id);
 
@@ -44,13 +49,13 @@ public class ProductController {
         return "editProduct";
     }
 
-    @PostMapping("/edit")
+    @PostMapping("/product/edit")
     public String postEditProduct(@ModelAttribute Product product, Model model){
         service.editProduct(product.getProductId(),product.getProductName(), product.getProductQuantity());
         return "redirect:list";
     }
 
-    @GetMapping("/delete/{id}")
+    @GetMapping("/product/delete/{id}")
     public String deleteProduct(@PathVariable ("id") String id, Model model){
         service.deleteProduct(id);
         return "redirect:../list";
