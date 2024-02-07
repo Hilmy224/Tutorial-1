@@ -36,9 +36,7 @@ public class ProductServiceImpl implements ProductService{
 
     @Override
     public void editProduct(String productId,String productName,int productQuantity) {
-        Product tempProduct=findProduct(productId);
-        tempProduct.setProductName(productName);
-        tempProduct.setProductQuantity(productQuantity);
+        productRepository.editProduct(productId,productName,productQuantity);
     }
 
     @Override

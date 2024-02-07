@@ -63,4 +63,61 @@ class ProductRepositoryTest {
         assertEquals(product2.getProductId(), savedProduct.getProductId());
         assertFalse(productIterator.hasNext());
     }
+
+    @Test
+    void testEditProduct() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        productRepository.editProduct("eb558e9f-1c39-460e-8860-71af6af63bd6","Giri Mini Sibi",200);
+
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertTrue(productIterator.hasNext());
+        Product savedProduct = productIterator.next();
+        assertEquals(product.getProductId(), savedProduct.getProductId());
+        assertEquals(product.getProductName(), savedProduct.getProductName());
+        assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+
+    }
+
+    @Test
+    void testEditProductFailed() {
+        Product product = new Product();
+        product.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        product.setProductName("Sampo Cap Bambang");
+        product.setProductQuantity(100);
+        productRepository.create(product);
+
+        assertThrows(IllegalArgumentException.class,
+                () -> productRepository.editProduct("Wrong ID","Giri Mini Sibi",200));
+    }
+
+    @Test
+    void testDeleteProduct() {
+        Product product = new Product();
+        product.setProductId("SecretId");
+        product.setProductName("Waluigi");
+        product.setProductQuantity(0101);
+        productRepository.create(product);
+
+        productRepository.deleteProduct("SecretId");
+        Iterator<Product> productIterator = productRepository.findAll();
+        assertFalse(productIterator.hasNext());
+
+    }
+
+    @Test
+    void testDeleteFailProduct() {
+        Product product = new Product();
+        product.setProductId("2024");
+        product.setProductName("Just Luigi");
+        product.setProductQuantity(1234);
+        productRepository.create(product);
+
+        assertThrows(IllegalArgumentException.class, ()->productRepository.deleteProduct("2025"));
+    }
+
 }
