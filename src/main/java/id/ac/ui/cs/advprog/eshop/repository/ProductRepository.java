@@ -17,8 +17,10 @@ public class ProductRepository {
            newId= rand.nextInt(0,8000);
         }
 
-        generatedId.add(newId);
-        product.setProductId(newId.toString());
+        if(product.getProductId()==null){
+            generatedId.add(newId);
+            product.setProductId(newId.toString());
+        }
         productData.add(product);
         return product;
     }
@@ -33,7 +35,13 @@ public class ProductRepository {
             }
         }
 
-        throw new IllegalArgumentException("The product with" + productId+" ID was not found");
+        throw new IllegalArgumentException("The product with {" + productId+"} ID was not found");
+    }
+
+    public void editProduct(String productId,String productName,int productQuantity) {
+        Product tempProduct=findProduct(productId);
+        tempProduct.setProductName(productName);
+        tempProduct.setProductQuantity(productQuantity);
     }
 
     public void deleteProduct(String productId){
