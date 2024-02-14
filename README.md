@@ -1,4 +1,5 @@
 # Weekly Tutorials
+link to [Tutorial Website](https://tutorial-advpro24-hilmy224.koyeb.app)
 
 ## Week 01
 
@@ -29,3 +30,14 @@ There are a lot of coding standards i did not implement that makes it flawed, Th
 * Creating a new Java class with identical setup procedures and instance variables may lead to redundancy and a decline in code quality.
 * This duplication in the new functional test suite can compromise code cleanliness, making it less organized and harder to maintain.
 * To improve code cleanliness, you could make abstract common setup procedures into reusable methods or parent classes to avoid duplication while ensuring that each test method focuses on a specific aspect of functionality.
+
+## Week 02
+
+### Reflection 
+==First Part==
+* One of them is clumsily setting the generic type of a Set when compiler can infer it causing a redundancy. The fix was to just remove the type.
+* in the controller methods for retrieving path variables or request parameters can make it difficult to test those endpoints and can also lead to ambiguity in the request mappings. Adding @RequestParam annotations clarifies the purpose of each parameter and improves the readability of the code
+* Lastly, I realized that we put different responsibilities into the same controller class.Combining multiple controller responsibilities within a single controller class can lead to poor code organization and maintenance difficulties as the application grows. Separating controllers based on functionality, such as having a separate HomepageController and ProductController
+
+==Second Part==
+Yes, for the Continuous Integration is effectively implemented through the ci.yml file, facilitating automated unit testing upon code push or pull requests. Additionally, the Sonar and Scorecard tools bolster this process by automatically checking for code cleanliness and identifying any issues after each push. For Continuous Delivery, the deployment service Koyeb features an integrated CI/CD system, aiding in issue testing during the deployment phase. 

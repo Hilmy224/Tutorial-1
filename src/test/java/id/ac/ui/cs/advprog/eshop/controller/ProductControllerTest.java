@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -71,20 +72,20 @@ class ProductControllerTest {
             .andExpect(status().is3xxRedirection());
     }
 
-    // @Test
-    // void testNormalProductEditPage() throws Exception {
-    //     Product editPageProduct=new Product();
-    //     editPageProduct.setProductId("myId");
-    //     editPageProduct.setProductName("Caestus");
-    //     editPageProduct.setProductQuantity(122);
+    @Test
+    void testNormalProductEditPage() throws Exception {
+        Product editPageProduct=new Product();
+        editPageProduct.setProductId("myId");
+        editPageProduct.setProductName("Caestus");
+        editPageProduct.setProductQuantity(122);
 
-    //     doReturn(editPageProduct).when(productService).findProduct(editPageProduct.getProductId());
+        doReturn(editPageProduct).when(productService).findProduct(editPageProduct.getProductId());
 
-    //     mockMvc.perform(get("/product/edit").param("id",editPageProduct.getProductId()))
-    //         .andExpect(view().name("EditProduct"))
-    //         .andExpect(model().attributeExists("product"))
-    //         .andExpect(status().isOk());
-    // }
+        mockMvc.perform(get("/product/edit").param("id",editPageProduct.getProductId()))
+            .andExpect(view().name("EditProduct"))
+            .andExpect(model().attributeExists("product"))
+            .andExpect(status().isOk());
+    }
 
     @Test
     void testEditProductPage() throws Exception {
@@ -96,24 +97,18 @@ class ProductControllerTest {
         .andExpect(status().is3xxRedirection());
     }
 
-    // @Test
-    // void testProductDeleteProduct() throws Exception {
-    //     Product product = new Product();
-    //     product.setProductName("MiniCraft");
-    //     product.setProductQuantity(64);
-    //     product.setProductId("DirtBlock");
-    //     doReturn(product).when(productService).findProduct(product.getProductId());
-
-    //     mockMvc.perform(get("/product/delete").param("id", product.getProductId()))
-    //         .andExpect(redirectedUrl("list"))
-    //         .andExpect(status().is3xxRedirection());
-    // }
-
     @Test
-    void homePageControllerTest() throws Exception {
-      mockMvc.perform(MockMvcRequestBuilders.get("/"))
-        .andExpect(MockMvcResultMatchers.view().name("HomePage"))
-        .andExpect(MockMvcResultMatchers.status().isOk());
+    void testProductDeleteProduct() throws Exception {
+        Product product = new Product();
+        product.setProductName("MiniCraft");
+        product.setProductQuantity(64);
+        product.setProductId("DirtBlock");
+        
+        doNothing().when(productService).deleteProduct(product.getProductId());
+
+        mockMvc.perform(get("/product/delete").param("id", product.getProductId()))
+            .andExpect(redirectedUrl("../list"))
+            .andExpect(status().is3xxRedirection());
     }
 
 }

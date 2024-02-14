@@ -9,7 +9,7 @@
     public class ProductRepository {
         private List<Product> productData = new ArrayList<>();
         private Random rand= new Random();
-        private Set<Integer> generatedId= new LinkedHashSet<Integer>();
+        private Set<Integer> generatedId= new LinkedHashSet<>();
 
         public Product create(Product product) {
             Integer newId= rand.nextInt(0,8000);

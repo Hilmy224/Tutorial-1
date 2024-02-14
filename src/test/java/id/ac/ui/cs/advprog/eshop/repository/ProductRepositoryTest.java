@@ -62,6 +62,7 @@ class ProductRepositoryTest {
 
 
 
+
     @Test
     void testFindAllIfEmpty() {
         Iterator<Product> productIterator = productRepository.findAll();
