@@ -46,7 +46,7 @@ class ProductControllerTest {
         doReturn(productList).when(productService).findAll();
 
         mockMvc.perform(get("/product/list"))
-            .andExpect(view().name("productList"))
+            .andExpect(view().name("ProductList"))
             .andExpect(model().attribute("products", productList))
             .andExpect(status().isOk());
     }
@@ -54,7 +54,7 @@ class ProductControllerTest {
     @Test
     void testNormalProductCreatePage() throws Exception {
         mockMvc.perform(get("/product/create"))
-            .andExpect(view().name("createProduct"))
+            .andExpect(view().name("CreateProduct"))
             .andExpect(model().attributeExists("product"))
             .andExpect(status().isOk());
     }
@@ -81,7 +81,7 @@ class ProductControllerTest {
     //     doReturn(editPageProduct).when(productService).findProduct(editPageProduct.getProductId());
 
     //     mockMvc.perform(get("/product/edit").param("id",editPageProduct.getProductId()))
-    //         .andExpect(view().name("editProduct"))
+    //         .andExpect(view().name("EditProduct"))
     //         .andExpect(model().attributeExists("product"))
     //         .andExpect(status().isOk());
     // }
@@ -112,7 +112,7 @@ class ProductControllerTest {
     @Test
     void homePageControllerTest() throws Exception {
       mockMvc.perform(MockMvcRequestBuilders.get("/"))
-        .andExpect(MockMvcResultMatchers.view().name("homepage"))
+        .andExpect(MockMvcResultMatchers.view().name("HomePage"))
         .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
