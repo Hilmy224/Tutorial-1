@@ -5,10 +5,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,13 +30,37 @@ class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
 
+
+
         Iterator<Product> productIterator = productRepository.findAll();
         assertTrue(productIterator.hasNext());
         Product savedProduct = productIterator.next();
         assertEquals(product.getProductId(), savedProduct.getProductId());
         assertEquals(product.getProductName(), savedProduct.getProductName());
         assertEquals(product.getProductQuantity(), savedProduct.getProductQuantity());
+        
     }
+
+    @Test
+    void testCreateCases() {
+        Product productExistingId = new Product();
+        productExistingId.setProductId("eb558e9f-1c39-460e-8860-71af6af63bd6");
+        productExistingId.setProductName("Boomb");
+        productExistingId.setProductQuantity(200);
+        productRepository.create(productExistingId);
+
+        
+        Product productNoId = new Product();
+        productNoId.setProductName("Boomb");
+        productNoId.setProductQuantity(200);
+        productRepository.create(productNoId);
+        
+
+        assertNotNull(productExistingId.getProductId());
+        assertNotNull(productNoId.getProductId());
+    }
+
+
 
     @Test
     void testFindAllIfEmpty() {
@@ -91,7 +117,7 @@ class ProductRepositoryTest {
         product.setProductQuantity(100);
         productRepository.create(product);
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(NoSuchElementException.class,
                 () -> productRepository.editProduct("Wrong ID","Giri Mini Sibi",200));
     }
 
@@ -117,7 +143,7 @@ class ProductRepositoryTest {
         product.setProductQuantity(1234);
         productRepository.create(product);
 
-        assertThrows(IllegalArgumentException.class, ()->productRepository.deleteProduct("2025"));
+        assertThrows(NoSuchElementException.class, ()->productRepository.deleteProduct("2025"));
     }
 
 }

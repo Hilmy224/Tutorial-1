@@ -18,14 +18,14 @@ public class ProductController {
 
     @GetMapping
     public String index(){
-        return "homepage";
+        return "HomePage";
     }
 
     @GetMapping("/product/create")
     public String createProductPage(Model model) {
         Product product = new Product();
         model.addAttribute("product" , product);
-        return "createProduct";
+        return "CreateProduct";
     }
 
     @PostMapping("/product/create")
@@ -38,7 +38,7 @@ public class ProductController {
     public String productListPage(Model model) {
         List<Product> allProducts = service.findAll();
         model.addAttribute("products", allProducts);
-        return "productList";
+        return "ProductList";
     }
 
     @GetMapping("/product/edit/{id}")
@@ -46,7 +46,7 @@ public class ProductController {
         Product targetProduct=service.findProduct(id);
 
         model.addAttribute("product",targetProduct);
-        return "editProduct";
+        return "EditProduct";
     }
 
     @PostMapping("/product/edit")
