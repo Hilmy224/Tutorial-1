@@ -1,6 +1,7 @@
 plugins {
     java
     jacoco
+    id("org.sonarqube") version "4.4.1.3373"
     id("org.springframework.boot") version "3.2.2"
     id("io.spring.dependency-management") version "1.1.4"
 }
@@ -20,6 +21,16 @@ configurations {
 
 repositories {
     mavenCentral()
+}
+
+
+sonar {
+	properties {
+		property("sonar.projectKey", "Hilmy224_Tutorial-1")
+		property("sonar.organization", "hilmy224")
+		property("sonar.host.url", "https://sonarcloud.io")
+		property ("sonar.login", "89ae7d2a67219f0f7d1d3b6199fee2d844554a8f")
+	}
 }
 
 val seleniumJavaVersion = "4.14.1"
