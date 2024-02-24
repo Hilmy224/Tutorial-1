@@ -81,7 +81,7 @@ class ProductControllerTest {
 
         doReturn(editPageProduct).when(productService).findProduct(editPageProduct.getProductId());
 
-        mockMvc.perform(get("/product/edit").param("id",editPageProduct.getProductId()))
+        mockMvc.perform(get("/product/edit/{id}", editPageProduct.getProductId()))
             .andExpect(view().name("EditProduct"))
             .andExpect(model().attributeExists("product"))
             .andExpect(status().isOk());
@@ -106,8 +106,8 @@ class ProductControllerTest {
         
         doNothing().when(productService).deleteProduct(product.getProductId());
 
-        mockMvc.perform(get("/product/delete").param("id", product.getProductId()))
-            .andExpect(redirectedUrl("../list"))
+        mockMvc.perform(post("/product/delete").param("productId", product.getProductId()))
+            .andExpect(redirectedUrl("list"))
             .andExpect(status().is3xxRedirection());
     }
 

@@ -8,18 +8,11 @@
     @Repository
     public class ProductRepository {
         private List<Product> productData = new ArrayList<>();
-        private Random rand= new Random();
-        private Set<Integer> generatedId= new LinkedHashSet<>();
 
         public Product create(Product product) {
-            Integer newId= rand.nextInt(0,8000);
-            while(generatedId.contains(newId)){
-            newId= rand.nextInt(0,8000);
-            }
-
-            if(product.getProductId()==null){
-                generatedId.add(newId);
-                product.setProductId(newId.toString());
+            if(product.getProductId() == null){
+                UUID uuid = UUID.randomUUID();
+                product.setProductId(uuid.toString());
             }
             productData.add(product);
             return product;
