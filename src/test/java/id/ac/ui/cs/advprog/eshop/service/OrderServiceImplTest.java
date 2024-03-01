@@ -67,7 +67,7 @@ public class OrderServiceImplTest {
     @Test
     void testCreateOrderIfAlreadyExists() {
         Order order = orders.get(1);
-        doReturn(order).when(orderRepository).findByid(order.getId());
+        doReturn(order).when(orderRepository).findById(order.getId());
 
         assertNull(orderService.createOrder(order));
         verify(orderRepository, times(0)).save(order);
@@ -127,7 +127,7 @@ public class OrderServiceImplTest {
     @Test
     void testFindAllByAuthorIfAuthorCorrect() {
         Order order = orders.get(1);
-        doReturn(order).when(orderRepository).findAllByAuthor(order.getAuthor());
+        doReturn(orders).when(orderRepository).findAllByAuthor(order.getAuthor());
 
         List<Order> results = orderService.findAllByAuthor(order.getAuthor());
         for (Order result : results) {
