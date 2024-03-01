@@ -58,7 +58,7 @@ public class OrderRepositoryTest {
     void testSaveUpdate() {
         Order order = orders.get(1);
         orderRepository.save(order);
-        Order newOrder = Order(order.getId(), order.getProducts(), order.getOrderTime(),
+        Order newOrder = new Order(order.getId(), order.getProducts(), order.getOrderTime(),
             order.getAuthor(), OrderStatus.SUCCESS.getValue());
         Order result = orderRepository.save(newOrder);
 
