@@ -3,6 +3,7 @@ package id.ac.ui.cs.advprog.eshop.model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -32,7 +33,7 @@ public class PaymentViaCashOnDeliveryTest {
         product2.setProductName("Sampo Cap Usep");
         products.add(product2);
 
-        oorders = new ArrayList<>();
+        orders = new ArrayList<>();
         Order order1 = new Order("136522556-012a-4c07-b546-54eb1396d79b",
                 products, 1708560000L, "Safira Sudrajat");
         orders.add(order1);
@@ -50,11 +51,11 @@ public class PaymentViaCashOnDeliveryTest {
         paymentDataCashOnDelivery.put("address", "kaliMantan");
         paymentDataCashOnDelivery.put("deliveryFee", "8800");
 
-        Payment payment = new PaymentViaCashOnDelivery("02657834-7df4-4ad4-b164-4bb6be61cf7f", orders.get(0), "CASH_ON_DELIVERY", paymentDataCashOnDelivery);
+        Payment payment = new PaymentViaCashOnDelivery("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc", orders.get(0), PaymentMethod.CASH_ON_DELIVERY.getValue(), paymentDataCashOnDelivery);
         assertSame(orders.get(0), payment.getOrder());
         assertEquals(paymentDataCashOnDelivery, payment.getPaymentData());
-        assertEquals("02657834-7df4-4ad4-b164-4bb6be61cf7f", payment.getId());
-        assertEquals("CASH_ON_DELIVERY", payment.getMethod());
+        assertEquals("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc", payment.getId());
+        assertEquals(PaymentMethod.CASH_ON_DELIVERY.getValue(), payment.getMethod());
     }
 
     @Test
@@ -63,10 +64,10 @@ public class PaymentViaCashOnDeliveryTest {
         paymentDataCashOnDelivery.put("address", "kaliMantan");
         paymentDataCashOnDelivery.put("deliveryFee", "8800");
 
-        PaymentViaCashOnDelivery PaymentCashOnDelivery = new PaymentViaCashOnDelivery("02657834-7df4-4ad4-b164-4bb6be61cf7f",orders.get(0), "CASH_ON_DELIVERY", paymentDataCashOnDelivery, PaymentStatus.SUCCESS.getValue());
+        PaymentViaCashOnDelivery PaymentCashOnDelivery = new PaymentViaCashOnDelivery("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc",orders.get(0), PaymentMethod.CASH_ON_DELIVERY.getValue(), paymentDataCashOnDelivery, PaymentStatus.SUCCESS.getValue());
         assertSame(orders.get(0), PaymentCashOnDelivery.getOrder());
-        assertEquals("02657834-7df4-4ad4-b164-4bb6be61cf7f", PaymentCashOnDelivery.getId());
-        assertEquals("CASH_ON_DELIVERY", PaymentCashOnDelivery.getMethod());
+        assertEquals("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc", PaymentCashOnDelivery.getId());
+        assertEquals(PaymentMethod.CASH_ON_DELIVERY.getValue(), PaymentCashOnDelivery.getMethod());
         assertEquals(paymentDataCashOnDelivery, PaymentCashOnDelivery.getPaymentData());
         assertEquals(PaymentStatus.SUCCESS.getValue(), PaymentCashOnDelivery.getStatus());
     }
@@ -78,7 +79,7 @@ public class PaymentViaCashOnDeliveryTest {
         paymentDataCashOnDelivery.put("deliveryFee", "8800");
 
         assertThrows(IllegalArgumentException.class, ()-> {
-            new PaymentViaCashOnDelivery("02657834-7df4-4ad4-b164-4bb6be61cf7f", orders.get(1),"CASH_ON_DELIVERY", paymentDataCashOnDelivery);
+            new PaymentViaCashOnDelivery("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc", orders.get(1),PaymentMethod.CASH_ON_DELIVERY.getValue(), paymentDataCashOnDelivery);
         });
     }
 
@@ -89,7 +90,7 @@ public class PaymentViaCashOnDeliveryTest {
         paymentDataCashOnDelivery.put("deliveryFee", "");
 
         assertThrows(IllegalArgumentException.class, ()-> {
-            new PaymentViaCashOnDelivery("02657834-7df4-4ad4-b164-4bb6be61cf7f", orders.get(1),"CASH_ON_DELIVERY", paymentDataCashOnDelivery);
+            new PaymentViaCashOnDelivery("f828f9bc-a9fc-4ad0-a04b-15da1529a0fc", orders.get(1),PaymentMethod.CASH_ON_DELIVERY.getValue(), paymentDataCashOnDelivery);
         });
     }
 }
