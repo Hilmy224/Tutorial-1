@@ -70,3 +70,13 @@ Good link for SOLID Princple advantages: [Link](https://mmmake.com/en/blog/solid
 
 * Violating the Interface Segregation Principle (ISP) leads to interfaces that are overly large and contain methods that are not relevant to all clients. This results in interface pollution and forces clients to depend on methods they don't need, leading to unnecessary complexity and potential bugs.
 
+
+## week 04
+
+### Reflection 
+
+=== TDD Review ===
+After completing the tutorial in this module, I found the Test-Driven Development (TDD) method to be incredibly beneficial. It significantly enhances the quality of the code produced by providing a structured and guided approach to programming. Dividing the development process into three stages—RED, GREEN, and REFACTOR—helps streamline the writing process. Writing tests before implementation forces me to specify desired behavior and design class structures beforehand, easing subsequent implementation.However, TDD can be time-consuming and occasionally confusing, especially with the requirement to write tests before any actual implementation that is why next time I make more test using the TDD flow, I would focus more on breaking it down into more simpler terms as to not confuse myself whent trying to see the big picture.
+
+=== Applied F.I.R.S.T Principle? === 
+The unit tests I created in this tutorial successfully adhere to the F.I.R.S.T. principle. They run quickly, providing instant feedback without disrupting workflow. They are isolated and independent, focusing on one method without influencing other tests, using mock objects. They are repeatable, designed to be run repeatedly. Furthermore, with the use of assertions, issues in the code can easily be detected based on the results of each assertion. Finally, the tests are thorough and timely, covering all possibilities and conducted promptly, encompassing both success and failure cases.
