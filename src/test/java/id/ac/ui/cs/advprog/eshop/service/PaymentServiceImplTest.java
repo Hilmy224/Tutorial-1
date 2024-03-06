@@ -128,7 +128,7 @@ class PaymentServiceImplTest {
     void testUpdateOrderStatusWhenPaymentRejected() {
         Order order = new Order("de60c34c-d731-46c7-8e21-64bd3c331f6f", products, 1708560000L, "Mono Sudrajat");
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment = new Payment(UUID.randomUUID().toString(), "BANK", order, paymentData, PaymentStatus.PENDING.getValue());
+        Payment payment = new Payment(UUID.randomUUID().toString(), "CASH_ON_DELIVERY", order, paymentData, PaymentStatus.PENDING.getValue());
 
         paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         assertEquals(OrderStatus.FAILED.getValue(), payment.getOrder().getStatus());
@@ -141,7 +141,7 @@ class PaymentServiceImplTest {
 
         Payment paymentFound = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), paymentFound.getId());
-        assertEquals("VOUCHER",paymentFound.getMethod());
+        assertEquals("VOUCHER_CODE",paymentFound.getMethod());
         assertEquals(payment.getStatus(), paymentFound.getStatus());
     }
 
