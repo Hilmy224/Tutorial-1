@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 @Builder
@@ -39,14 +40,22 @@ public class Payment {
 
     public void setStatus(String status) {
 
-        if (!PaymentStatus.contains(status)) {
-            throw new IllegalArgumentException("Invalid payment status");
+        if (PaymentStatus.contains(status)){
+            this.status = status;
+        } else {
+            throw new IllegalArgumentException("Invalid status");
         }
         
         this.status = status;
     }
 
     protected void setPaymentData(Map<String, String> paymentData) {
+        if (PaymentMethod.contains(this.method)) {
+            throw new IllegalArgumentException(
+                    "Can't assign payment data to a payment method when it's not specified"
+            );
+        }
+
         this.paymentData = null;
     }
 }
