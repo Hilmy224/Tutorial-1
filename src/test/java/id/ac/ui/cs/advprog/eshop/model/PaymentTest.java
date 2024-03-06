@@ -13,6 +13,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 
 public class PaymentTest {
@@ -46,7 +47,7 @@ public class PaymentTest {
     void testCreatePaymentWithNullOrder() {
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                    "", null, paymentData);
+                    PaymentMethod.VOUCHER_CODE.getValue(), null, paymentData);
         });
     }
 
@@ -55,12 +56,12 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
         paymentData.clear();
     }
@@ -70,12 +71,12 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData, "SUCCESS");
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "SUCCESS");
 
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
@@ -85,12 +86,12 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData, "REJECTED");
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "REJECTED");
 
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
@@ -101,7 +102,7 @@ public class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                    "", order, paymentData, "MEOW");
+            PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "MEOW");
         });
 
         paymentData.clear();
@@ -113,7 +114,7 @@ public class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                    "", order, paymentData, null);
+            PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, null);
         });
 
         paymentData.clear();
@@ -125,12 +126,12 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
 
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.PENDING.getValue(), payment.getStatus());
 
         paymentData.clear();
@@ -142,12 +143,12 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData, PaymentStatus.SUCCESS.getValue());
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, PaymentStatus.SUCCESS.getValue());
 
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
     }
@@ -158,11 +159,11 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData, PaymentStatus.REJECTED.getValue());
+        PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, PaymentStatus.REJECTED.getValue());
         assertSame(payment.getOrder(), order);
         assertNull(payment.getPaymentData());
         assertEquals("904b780e-56c0-489d-828e-0f7b4ca79858", payment.getId());
-        assertEquals("", payment.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(), payment.getMethod());
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
     }
@@ -174,7 +175,7 @@ public class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                    "", order, paymentData, "MEOW");
+                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, "MEOW");
         });
         paymentData.clear();
     }
@@ -186,7 +187,7 @@ public class PaymentTest {
 
         assertThrows(IllegalArgumentException.class, () -> {
             new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                    "", order, paymentData, null);
+                    PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData, null);
         });
         paymentData.clear();
     }
@@ -196,7 +197,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
@@ -207,7 +208,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         payment.setStatus(PaymentStatus.REJECTED.getValue());
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
@@ -218,7 +219,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus("MEOW");
         });
@@ -230,7 +231,7 @@ public class PaymentTest {
         paymentData.put("voucherCode", "ESHOPDDD12345678");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus(null);
         });
@@ -243,7 +244,7 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         payment.setStatus(PaymentStatus.SUCCESS.getValue());
         assertEquals(PaymentStatus.SUCCESS.getValue(), payment.getStatus());
         paymentData.clear();
@@ -255,7 +256,7 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         payment.setStatus(PaymentStatus.REJECTED.getValue());
         assertEquals(PaymentStatus.REJECTED.getValue(), payment.getStatus());
         paymentData.clear();
@@ -267,7 +268,7 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus("MEOW");
         });
@@ -280,7 +281,7 @@ public class PaymentTest {
         paymentData.put("deliveryFee", "8800");
 
         Payment payment = new Payment("904b780e-56c0-489d-828e-0f7b4ca79858",
-                "", order, paymentData);
+                PaymentMethod.VOUCHER_CODE.getValue(), order, paymentData);
         assertThrows(IllegalArgumentException.class, () -> {
             payment.setStatus(null);
         });
