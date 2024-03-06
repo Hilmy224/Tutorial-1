@@ -4,6 +4,7 @@ package id.ac.ui.cs.advprog.eshop.service;
 import id.ac.ui.cs.advprog.eshop.model.Order;
 import id.ac.ui.cs.advprog.eshop.model.Product;
 import id.ac.ui.cs.advprog.eshop.enums.OrderStatus;
+import id.ac.ui.cs.advprog.eshop.enums.PaymentMethod;
 import id.ac.ui.cs.advprog.eshop.enums.PaymentStatus;
 import id.ac.ui.cs.advprog.eshop.model.Payment;
 import id.ac.ui.cs.advprog.eshop.repository.PaymentRepository;
@@ -59,13 +60,13 @@ class PaymentServiceImplTest {
 
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode", "ESHOPDDD12345678");
-        Payment payment1 = new Payment("b37ae664-86c0-4812-979f-4affe7c37a43", "VOUCHER_CODE", orders.get(0), paymentData, PaymentStatus.PENDING.getValue());
+        Payment payment1 = new Payment("b37ae664-86c0-4812-979f-4affe7c37a43", PaymentMethod.VOUCHER_CODE.getValue(), orders.get(0), paymentData, PaymentStatus.PENDING.getValue());
         payments.add(payment1);
 
         paymentData = new HashMap<>();
         paymentData.put("address", "kaliMantan");
         paymentData.put("deliveryFee", "8800");
-        Payment payment2 = new Payment("040c6ac5-3056-4547-867e-a95a65311b5e", "CASH_ON_DELIVERY", orders.get(0), paymentData, PaymentStatus.PENDING.getValue());
+        Payment payment2 = new Payment("040c6ac5-3056-4547-867e-a95a65311b5e", PaymentMethod.CASH_ON_DELIVERY.getValue(), orders.get(0), paymentData, PaymentStatus.PENDING.getValue());
         payments.add(payment2);
     }
 
@@ -73,11 +74,11 @@ class PaymentServiceImplTest {
     void testAddPayment() {
         Payment payment1 = payments.get(0);
         doReturn(payment1).when(paymentRepository).save(any(Payment.class));
-        payment1 = paymentService.addPayment(payment1.getOrder(), "VOUCHER_CODE", payment1.getPaymentData());
+        payment1 = paymentService.addPayment(payment1.getOrder(), PaymentMethod.VOUCHER_CODE.getValue(), payment1.getPaymentData());
 
         Payment payment2 = payments.get(1);
         doReturn(payment2).when(paymentRepository).save(any(Payment.class));
-        payment2 = paymentService.addPayment(payment2.getOrder(), "CASH_ON_DELIVERY", payment2.getPaymentData());
+        payment2 = paymentService.addPayment(payment2.getOrder(), PaymentMethod.CASH_ON_DELIVERY.getValue(), payment2.getPaymentData());
 
         doReturn(payment1).when(paymentRepository).findById(payment1.getId());
         Payment findResult = paymentService.getPayment(payment1.getId());
@@ -98,7 +99,7 @@ class PaymentServiceImplTest {
     void testSetStatusSuccessful() {
         Map<String, String> paymentData = new HashMap<>();
         paymentData.put("voucherCode","ESHOPDDD12345678");
-        Payment payment1 = new Payment("05b6687d-763a-4f29-9e85-144f31337282", "VOUCHER_CODE", orders.get(0), paymentData);
+        Payment payment1 = new Payment("05b6687d-763a-4f29-9e85-144f31337282", PaymentMethod.VOUCHER_CODE.getValue(), orders.get(0), paymentData);
 
         assertEquals(PaymentStatus.PENDING.getValue(),payment1.getStatus());
         paymentService.setStatus(payment1, PaymentStatus.SUCCESS.getValue());
@@ -111,7 +112,7 @@ class PaymentServiceImplTest {
     void testUpdateOrderStatusWhenPaymentSuccess() {
         Order order = new Order("de60c34c-d731-46c7-8e21-64bd3c331f6f", products, 1708560000L, "Mono Sudrajat");
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment = new Payment(UUID.randomUUID().toString(), "CASH_ON_DELIVERY", order, paymentData, PaymentStatus.PENDING.getValue());
+        Payment payment = new Payment(UUID.randomUUID().toString(), PaymentMethod.CASH_ON_DELIVERY.getValue(), order, paymentData, PaymentStatus.PENDING.getValue());
 
         paymentService.setStatus(payment, PaymentStatus.SUCCESS.getValue());
         assertEquals(OrderStatus.SUCCESS.getValue(), payment.getOrder().getStatus());
@@ -128,7 +129,7 @@ class PaymentServiceImplTest {
     void testUpdateOrderStatusWhenPaymentRejected() {
         Order order = new Order("de60c34c-d731-46c7-8e21-64bd3c331f6f", products, 1708560000L, "Mono Sudrajat");
         Map<String, String> paymentData = new HashMap<>();
-        Payment payment = new Payment(UUID.randomUUID().toString(), "CASH_ON_DELIVERY", order, paymentData, PaymentStatus.PENDING.getValue());
+        Payment payment = new Payment(UUID.randomUUID().toString(), PaymentMethod.CASH_ON_DELIVERY.getValue(), order, paymentData, PaymentStatus.PENDING.getValue());
 
         paymentService.setStatus(payment, PaymentStatus.REJECTED.getValue());
         assertEquals(OrderStatus.FAILED.getValue(), payment.getOrder().getStatus());
@@ -141,7 +142,7 @@ class PaymentServiceImplTest {
 
         Payment paymentFound = paymentService.getPayment(payment.getId());
         assertEquals(payment.getId(), paymentFound.getId());
-        assertEquals("VOUCHER_CODE",paymentFound.getMethod());
+        assertEquals(PaymentMethod.VOUCHER_CODE.getValue(),paymentFound.getMethod());
         assertEquals(payment.getStatus(), paymentFound.getStatus());
     }
 
