@@ -74,7 +74,7 @@ class PaymentViaVoucherCodeTest {
     @Test
     void testCreatePaymentFailedProperLengthVoucherCode() {
         Map<String, String> paymentDataVoucher = new HashMap<>();
-        paymentDataVoucher.put("voucherCode", "ESHOPDDD12345678");
+        paymentDataVoucher.put("voucherCode", "ESHOPDD123456789");
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentViaVoucherCode("ac8d3be4-dbac-11ee-a506-0242ac120002",orders.get(1),
@@ -85,7 +85,7 @@ class PaymentViaVoucherCodeTest {
     @Test
     void testCreatePaymentFailedProperNumericalLengthVoucherCode() {
         Map<String, String> paymentDataVoucher = new HashMap<>();
-        paymentDataVoucher.put("voucherCode", "ESHOPDDD12345678");
+        paymentDataVoucher.put("voucherCode", "ESHOPDDD123");
 
         assertThrows(IllegalArgumentException.class, ()-> {
             new PaymentViaVoucherCode("ac8d3be4-dbac-11ee-a506-0242ac120002",orders.get(1),
