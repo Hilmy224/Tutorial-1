@@ -54,8 +54,8 @@ class PaymentRepositoryTest {
         payments.add(voucher);
 
         Map<String, String> paymentDataCashOnDelivery = new HashMap<>();
-        paymentDataCashOnDelivery.put("address", "Akses UI");
-        paymentDataCashOnDelivery.put("deliveryFee", "9000");
+        paymentDataCashOnDelivery.put("address", "kaliMantan");
+        paymentDataCashOnDelivery.put("deliveryFee", "8800");
 
         Payment cashOnDelivery = new Payment("040c6ac5-3056-4547-867e-a95a65311b5e", "CASH_ON_DELIVERY", orders.get(0), paymentDataCashOnDelivery, PaymentStatus.PENDING.getValue());
         payments.add(cashOnDelivery);
@@ -90,6 +90,7 @@ class PaymentRepositoryTest {
         }
 
         Payment findResult = paymentRepository.findById(payments.get(1).getId());
+
         assertSame(payments.get(1).getOrder(), findResult.getOrder());
         assertEquals(payments.get(1).getId(), findResult.getId());
         assertEquals(payments.get(1).getMethod(), findResult.getMethod());
@@ -103,7 +104,7 @@ class PaymentRepositoryTest {
             paymentRepository.save(payment);
         }
 
-        Payment findResult = paymentRepository.findById("invalidId");
+        Payment findResult = paymentRepository.findById("MEOWID");
         assertNull(findResult);
     }
 
